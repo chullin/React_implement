@@ -10,3 +10,10 @@
 ![alt text](img/image.png)
 ![alt text](img/image-2.png)
 ![alt text](img/image-3.png)
+
+```cmd
+npm init -y # 初始化 npm
+npm install gh-pages # 安裝 gh-pages 套件
+```
+
+![alt text](img/image-4.png)
