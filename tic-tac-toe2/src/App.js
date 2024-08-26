@@ -1,37 +1,31 @@
-// import logo from './logo.svg'; - 導入 logo.svg 圖片，並將其作為變數 logo 使用。
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';                // 從 React 中導入了 React 和 useState。useState 是 React 的一個 Hook，用來管理狀態。
+import { ThemeProvider } from 'styled-components';      // 從 styled-components 庫中導入 ThemeProvider。ThemeProvider 是一個高階元件，用來為應用提供全局主題。
+import TicTacToe2 from './TicTacToe2';                  // 導入 TicTacToe2 元件，這可能是一個井字棋遊戲的元件。
+import themes from './themes';                          // 導入主題文件 themes，其中包含不同的樣式主題。
 
-// 這段代碼定義了一個名為 App 的 React 元件。該元件返回一個 JSX（類似於 HTML）的結構
-function App() {
-  return (
-    // <div className="App"> 是一個包含所有應用程式內容的最外層容器，它使用了 App.css 中定義的 .App 樣式
-    <div className="App">
-      
-      {/* 這一行定義了頁首標籤 <header>，並將其樣式設置為 .App-header（在 App.css 中定義） */}
-      <header className="App-header">
 
-        {/* 這一行渲染了一個圖片標籤 <img>，其來源是之前導入的 logo.svg。圖片的樣式類為 App-logo，並且設置了替代文字 alt 為 "logo"。 */}
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+// 這一行代碼取得主題文件中的第一個主題，並將其設置為默認主題。Object.keys(themes) 會返回 themes 物件中的所有鍵（主題名稱），[0] 取得第一個主題名稱。
+const defaultTheme = Object.keys(themes)[0];
 
-        {/* 這段代碼渲染了一個超連結 <a>，其樣式類為 App-link。 */}
-        <a
-          className="App-link"
-          href="https://reactjs.org"
+// 這部分代碼定義了一個函數式元件 App，並使用 useState Hook 來管理 selectedTheme 狀態
+const App = () => {
+    // selectedTheme:  是當前選擇的主題名稱
+    // setSelectedTheme:  是一個函數，是更新主題的函數
+    // useState(defaultTheme): 將初始主題設置為前面取得的 defaultTheme
+    const [selectedTheme, setSelectedTheme] = useState(defaultTheme);
 
-          // 該連結指向 React 的官方網站，並在新標籤頁中打開（target="_blank"）。rel="noopener noreferrer" 是用來提高安全性，防止可能的釣魚攻擊。
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    //這部分代碼返回應用程式的 JSX 結構
+    return (
+        // 使用 ThemeProvider 包裹應用，並將選擇的主題（themes[selectedTheme]）作為 theme 屬性傳入。這樣，所有內部的元件都能根據這個主題進行樣式設置。
+        <ThemeProvider theme={themes[selectedTheme]}>
+            {/* 渲染 TicTacToe2 元件，並傳遞兩個屬性 */}
+            <TicTacToe2
+                selectedTheme={selectedTheme}           // 當前選擇的主題名稱
+                setSelectedTheme={setSelectedTheme}     // 用於更新選擇的主題。當用戶切換主題時，這個函數會被調用。
+            />
+        {/* 關閉 ThemeProvider，這意味著所有子元件都可以使用這個主題 */}
+        </ThemeProvider>
+    );
+};
 
-// 這一行將 App 元件設置為默認導出，使得它可以在其他文件中被導入和使用。
 export default App;
