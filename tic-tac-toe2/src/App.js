@@ -17,7 +17,8 @@ const App = () => {
     //這部分代碼返回應用程式的 JSX 結構
     return (
         // 使用 ThemeProvider 包裹應用，並將選擇的主題（themes[selectedTheme]）作為 theme 屬性傳入。這樣，所有內部的元件都能根據這個主題進行樣式設置。
-        <ThemeProvider theme={themes[selectedTheme]}>
+        // <ThemeProvider theme={themes[selectedTheme]}>
+        <ThemeProvider theme={themes.sakura}>
             {/* 渲染 TicTacToe2 元件，並傳遞兩個屬性 */}
             <TicTacToe2
                 selectedTheme={selectedTheme}           // 當前選擇的主題名稱
